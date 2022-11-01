@@ -14,15 +14,15 @@
             event.preventDefault();
         })
 
-        document.querySelector(`#form_<?=$arParams['TOKEN']?>`).addEventListener("mouseover",(() => {
+        document.querySelector(`#form_<?=$arParams['TOKEN']?>`).addEventListener("mouseover",() => {
             if (typeof recaptcha === "undefined") {
                 const rescript = document.createElement('script');
                 rescript.src = `https://www.google.com/recaptcha/api.js?render=<?= $arParams['RECAPTCHA_PUBLIC_KEY'] ?>`
                 document.body.append(rescript)
             }
-        }))
+        })
 
-        document.querySelector(`#form_<?=$arParams['TOKEN']?> button`).addEventListener("click",((e) => {
+        document.querySelector(`#form_<?=$arParams['TOKEN']?> *[type="submit"]`).addEventListener("click",(e) => {
             e.preventDefault()
 
             var arErrors = [];
@@ -66,20 +66,20 @@
                     method: 'POST',
                     body: formData,
                 })
-                    .then(response => response.json())
-                    .then((json) => {
-                        if (json.status) {
-                            modalWindow.close()
-                            modalWindow.open("#application-sent")
-                            document.addEventListener('click', () => location.reload())
-                        } else {
-                            alert('Произошла ошибка')
-                        }
-                    })
-                    .catch(() => {
+                .then(response => response.json())
+                .then((json) => {
+                    if (json.status) {
+                        modalWindow.close()
+                        modalWindow.open("#application-sent")
+                        document.addEventListener('click', () => location.reload())
+                    } else {
                         alert('Произошла ошибка')
-                    })
+                    }
+                })
+                .catch(() => {
+                    alert('Произошла ошибка')
+                })
             })
-        }))
+        })
     })
 </script>
