@@ -57,6 +57,7 @@
                 .then(response => response.json())
                 .then((json) => {
                     if (json.status) {
+                        console.log('закрыть модалку допустим')
                         document.addEventListener('click', () => location.reload())
                     } else {
                         alert('Произошла ошибка')
