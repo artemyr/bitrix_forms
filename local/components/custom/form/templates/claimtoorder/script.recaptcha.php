@@ -14,8 +14,10 @@
             event.preventDefault();
         })
 
+        var recaptcha_loc_fetch = false;
         document.querySelector(`#form_<?=$arParams['TOKEN']?>`).addEventListener("mouseover",() => {
-            if (typeof recaptcha === "undefined") {
+            if (recaptcha_loc_fetch === false) {
+                recaptcha_loc_fetch = true;
                 const rescript = document.createElement('script');
                 rescript.src = `https://www.google.com/recaptcha/api.js?render=<?= $arParams['RECAPTCHA_PUBLIC_KEY'] ?>`
                 document.body.append(rescript)
